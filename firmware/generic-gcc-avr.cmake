@@ -85,8 +85,8 @@ endif(NOT AVR_UPLOADTOOL_PORT)
 # default programmer (hardware)
 if(NOT AVR_PROGRAMMER)
     set(
-            AVR_PROGRAMMER dragon_isp
-            CACHE STRING "Set default programmer hardware model: dragon_isp"
+            AVR_PROGRAMMER dragon_hvsp
+            CACHE STRING "Set default programmer hardware model: dragon_hvsp"
     )
 endif(NOT AVR_PROGRAMMER)
 

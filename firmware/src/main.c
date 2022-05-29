@@ -1,20 +1,27 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
- 
+
+#include <util/delay.h>
+
+
 // initialize pwm
 void pwm_init() {
     /*set prescaler to /8
       fast PWM modde
       enable PB1
-      diable PB0
+      disable PB0
      */
+    TCCR0A = 0x00;
     TCCR0A = (1<<COM0B1)|(1<<WGM01)|(1<<WGM00);
+    TCCR0B = 0x00;
     TCCR0B = (1<<WGM02)|(1<<CS00);
+
+    TCNT0 = 0;
 
     // F_CPU / 8 / (39 + 1) = 25khz 
     OCR0A = 39;
     // Initial duty cycle
-    OCR0B = 20;
+    OCR0B = 9;
 }
 
 // initialize adc
@@ -58,17 +65,21 @@ void timer_init()
     OCR1A = 243; // set the comparison value
     OCR1C = 243;
     TIMSK = (1<<OCIE1A); // enable a interrupt
-    TCCR1 = (1<<CTC1)|(1<<CS13)|(1<<CS12)|(1<<CS11)|(1<<CS10);
+    TCCR1 = (1<<CTC1)|(1<<CS13)|(1<<CS12)|(1<<CS11)|(1<<CS00);
 
     sei();
+}
+
+void process() {
+    uint16_t adc_result;
+    adc_result = adc_read(0);      // read adc value at PB5
+    OCR0B = 10 + adc_result / 9; 
 }
 
 ISR(TIM1_COMPA_vect)
 {
     MCUCR &= ~(1<<SE); // disable sleep mode
-    uint16_t adc_result;
-    adc_result = adc_read(0);      // read adc value at PB5
-    OCR0B = 10 + adc_result / 9; 
+    process();
 }
 
 void enter_sleep()
@@ -81,15 +92,17 @@ void enter_sleep()
 
 int main()
 {
-    DDRB = (1<<PB1);
- 
+    DDRB = (1<<DDB1);
+
     // initialize adc and pwm
-    adc_init();
+    // adc_init();
     pwm_init();
-    timer_init();
+//    timer_init();
 
     while(1)
     {
-        enter_sleep();
+        // enter_sleep();
+//	process();
+//	_delay_ms(100);
     }
 }
