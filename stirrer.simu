@@ -1,0 +1,57 @@
+<circuit type="simulide_0.1">
+ 
+Node-18: 
+<item vflip="1" rotation="0" labely="-24" itemtype="Node" valLabely="0" labelrot="0" labelx="-16" valLabelx="0" objectName="Node-18" hflip="1" id="Node-18" valLabRot="0" Show_id="false" x="-548" y="-236"/>
+ 
+Oscope-16: 
+<item vflip="1" rotation="0" labely="-24" itemtype="Oscope" valLabely="0" labelrot="0" labelx="-16" valLabelx="0" Filter="0.3" objectName="Oscope-16" hflip="1" id="Oscope-16" valLabRot="0" Show_id="false" x="-300" y="-276"/>
+ 
+Node-13: 
+<item vflip="1" rotation="0" labely="-24" itemtype="Node" valLabely="0" labelrot="0" labelx="-16" valLabelx="0" objectName="Node-13" hflip="1" id="Node-13" valLabRot="0" Show_id="false" x="-460" y="-308"/>
+ 
+Rail.-10: 
+<item y="-356" labelx="-64" Show_Volt="true" vflip="1" valLabely="8" id="Rail.-10" hflip="1" Voltage="5" Unit=" V" labelrot="0" Show_id="false" valLabelx="-16" objectName="Rail.-10" itemtype="Rail" x="-476" rotation="0" labely="-24" valLabRot="0"/>
+ 
+Node-8: 
+<item vflip="1" rotation="0" labely="-24" itemtype="Node" valLabely="0" labelrot="0" labelx="-16" valLabelx="0" objectName="Node-8" hflip="1" id="Node-8" valLabRot="0" Show_id="false" x="-548" y="-260"/>
+ 
+Ground (0 V)-5: 
+<item vflip="1" rotation="0" labely="-24" itemtype="Ground" valLabely="0" labelrot="0" labelx="-16" valLabelx="0" objectName="Ground (0 V)-5" hflip="1" id="Ground (0 V)-5" valLabRot="0" Show_id="false" x="-548" y="-212"/>
+ 
+Potentiometer-3: 
+<item y="-308" labelx="-16" vflip="1" valLabely="-20" id="Potentiometer-3" hflip="1" Value_Ohm="500" Unit=" kΩ" Show_res="true" Resistance="1" labelrot="0" Show_id="false" valLabelx="10" objectName="Potentiometer-3" itemtype="Potentiometer" x="-532" rotation="0" labely="-24" valLabRot="0"/>
+ 
+attiny85-2: 
+<item vflip="1" program="" rotation="0" labely="-20" itemtype="AVR" valLabely="0" labelrot="0" labelx="0" valLabelx="0" objectName="attiny85-2" hflip="1" id="attiny85-2" valLabRot="0" Mhz="16" Show_id="true" x="-492" y="-292"/>
+ 
+Connector-4: 
+<item endpinid="attiny85-2-PB5" y="-292" labelx="-16" vflip="1" valLabely="0" startpinid="Potentiometer-3-PinM" id="Connector-4" enodeid="enode-4" hflip="1" pointList="-532,-292,-532,-284,-500,-284" labelrot="0" Show_id="false" valLabelx="0" objectName="Connector-4" itemtype="Connector" x="-532" rotation="0" labely="-24" valLabRot="0"/>
+ 
+Connector-6: 
+<item endpinid="Node-8-0" y="-308" labelx="-16" vflip="1" valLabely="0" startpinid="Potentiometer-3-PinA" id="Connector-6" enodeid="enode-20" hflip="1" pointList="-548,-308,-548,-260" labelrot="0" Show_id="false" valLabelx="0" objectName="Connector-6" itemtype="Connector" x="-548" rotation="0" labely="-24" valLabRot="0"/>
+ 
+Connector-7: 
+<item endpinid="Node-8-1" y="-260" labelx="-16" vflip="1" valLabely="0" startpinid="attiny85-2-GND" id="Connector-7" enodeid="enode-20" hflip="1" pointList="-500,-260,-548,-260" labelrot="0" Show_id="false" valLabelx="0" objectName="Connector-7" itemtype="Connector" x="-500" rotation="0" labely="-24" valLabRot="0"/>
+ 
+Connector-9: 
+<item endpinid="Node-18-0" y="-260" labelx="-16" vflip="1" valLabely="0" startpinid="Node-8-2" id="Connector-9" enodeid="enode-20" hflip="1" pointList="-548,-260,-548,-236" labelrot="0" Show_id="false" valLabelx="0" objectName="Connector-9" itemtype="Connector" x="-548" rotation="0" labely="-24" valLabRot="0"/>
+ 
+Connector-11: 
+<item endpinid="Node-13-0" y="-308" labelx="-16" vflip="1" valLabely="0" startpinid="Potentiometer-3-PinB" id="Connector-11" enodeid="enode-12" hflip="1" pointList="-516,-308,-460,-308" labelrot="0" Show_id="false" valLabelx="0" objectName="Connector-11" itemtype="Connector" x="-516" rotation="0" labely="-24" valLabRot="0"/>
+ 
+Connector-12: 
+<item endpinid="Node-13-1" y="-284" labelx="-16" vflip="1" valLabely="0" startpinid="attiny85-2-VCC" id="Connector-12" enodeid="enode-12" hflip="1" pointList="-452,-284,-452,-308,-460,-308" labelrot="0" Show_id="false" valLabelx="0" objectName="Connector-12" itemtype="Connector" x="-452" rotation="0" labely="-24" valLabRot="0"/>
+ 
+Connector-14: 
+<item endpinid="Rail.-10-outnod" y="-308" labelx="-16" vflip="1" valLabely="0" startpinid="Node-13-2" id="Connector-14" enodeid="enode-12" hflip="1" pointList="-460,-308,-460,-356" labelrot="0" Show_id="false" valLabelx="0" objectName="Connector-14" itemtype="Connector" x="-460" rotation="0" labely="-24" valLabRot="0"/>
+ 
+Connector-17: 
+<item endpinid="Oscope-16-PinP" y="-268" labelx="-16" vflip="1" valLabely="0" startpinid="attiny85-2-PB1" id="Connector-17" enodeid="enode-17" hflip="1" pointList="-452,-268,-436,-268,-436,-276,-420,-276" labelrot="0" Show_id="false" valLabelx="0" objectName="Connector-17" itemtype="Connector" x="-452" rotation="0" labely="-24" valLabRot="0"/>
+ 
+Connector-19: 
+<item endpinid="Ground (0 V)-5-Gnd" y="-236" labelx="-16" vflip="1" valLabely="0" startpinid="Node-18-2" id="Connector-19" enodeid="enode-20" hflip="1" pointList="-548,-236,-548,-228" labelrot="0" Show_id="false" valLabelx="0" objectName="Connector-19" itemtype="Connector" x="-548" rotation="0" labely="-24" valLabRot="0"/>
+ 
+Connector-20: 
+<item endpinid="Oscope-16-PinN" y="-236" labelx="-16" vflip="1" valLabely="0" startpinid="Node-18-1" id="Connector-20" enodeid="enode-20" hflip="1" pointList="-548,-236,-420,-236,-420,-260" labelrot="0" Show_id="false" valLabelx="0" objectName="Connector-20" itemtype="Connector" x="-548" rotation="0" labely="-24" valLabRot="0"/>
+ 
+</circuit>
