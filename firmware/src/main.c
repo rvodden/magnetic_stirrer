@@ -28,22 +28,17 @@ void pwm_init() {
 void adc_init()
 {
     // AREF = AVcc
-    ADMUX = (1<<REFS0);
+    // Enable channel 2
+    ADMUX = (1<<MUX1)|(1<<ADLAR);
  
     // ADC Enable and prescaler of 128
-    // 16000000/128 = 125000
-    ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
+    // 1000000/8 = 125000
+    ADCSRA = (1<<ADEN)|(1<<ADPS1)|(1<<ADPS0);
 }
 
 // read adc value
-uint16_t adc_read(uint8_t channel)
+uint8_t adc_read()
 {
-    // select the corresponding channel 0~7
-    // ANDing with '7' will always keep the value
-    // of 'ch' between 0 and 7
-    channel &= 0x07;  // AND operation with 7
-    ADMUX = (ADMUX & 0xF8) | channel;     // clears the bottom 3 bits before ORing
- 
     // start single conversion
     // write '1' to ADSC
     ADCSRA |= (1<<ADSC);
@@ -53,7 +48,7 @@ uint16_t adc_read(uint8_t channel)
     // till then, run loop continuously
     while(ADCSRA & (1<<ADSC));
  
-    return (ADC);
+    return (ADCH);
 }
  
 // initialize timer
@@ -72,7 +67,7 @@ void timer_init()
 
 void process() {
     uint16_t adc_result;
-    adc_result = adc_read(0);      // read adc value at PB5
+    adc_result = adc_read();      // read adc value at PB5
     OCR0B = 10 + adc_result / 9; 
 }
 
@@ -95,14 +90,14 @@ int main()
     DDRB = (1<<DDB1);
 
     // initialize adc and pwm
-    // adc_init();
+    adc_init();
     pwm_init();
-//    timer_init();
+    // timer_init();
 
     while(1)
     {
         // enter_sleep();
-//	process();
-//	_delay_ms(100);
+	process();
+	_delay_ms(100);
     }
 }
