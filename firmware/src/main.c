@@ -32,23 +32,17 @@ void adc_init()
     ADMUX = (1<<MUX1)|(1<<ADLAR);
  
     // ADC Enable and prescaler of 128
+    // Enable conversion interrupt
     // 1000000/8 = 125000
-    ADCSRA = (1<<ADEN)|(1<<ADPS1)|(1<<ADPS0);
+    ADCSRA = (1<<ADEN)|(1<<ADPS1)|(1<<ADPS0)|(1<<ADIE);
 }
 
 // read adc value
-uint8_t adc_read()
+void adc_start_conversion()
 {
     // start single conversion
     // write '1' to ADSC
     ADCSRA |= (1<<ADSC);
- 
-    // wait for conversion to complete
-    // ADSC becomes '0' again
-    // till then, run loop continuously
-    while(ADCSRA & (1<<ADSC));
- 
-    return (ADCH);
 }
  
 // initialize timer
@@ -57,24 +51,24 @@ void timer_init()
     TCCR1 = 0; // Stop the timer
     TCNT1 = 0; // Zero the timer
     GTCCR = (1<<PSR1); // reset the prescaler
-    OCR1A = 243; // set the comparison value
-    OCR1C = 243;
+    OCR1A = 25; // set the comparison value
+    OCR1C = 25;
     TIMSK = (1<<OCIE1A); // enable a interrupt
     TCCR1 = (1<<CTC1)|(1<<CS13)|(1<<CS12)|(1<<CS11)|(1<<CS00);
 
     sei();
 }
 
-void process() {
-    uint16_t adc_result;
-    adc_result = adc_read();      // read adc value at PB5
-    OCR0B = 10 + adc_result / 9; 
-}
-
 ISR(TIM1_COMPA_vect)
 {
     MCUCR &= ~(1<<SE); // disable sleep mode
-    process();
+    adc_start_conversion();
+}
+
+ISR(ADC_vect) 
+{
+    // write scaled value into PWM register
+    OCR0B = 10 + ADCH / 9;
 }
 
 void enter_sleep()
@@ -92,12 +86,10 @@ int main()
     // initialize adc and pwm
     adc_init();
     pwm_init();
-    // timer_init();
+    timer_init();
 
     while(1)
     {
-        // enter_sleep();
-	process();
-	_delay_ms(100);
+        enter_sleep();
     }
 }
